@@ -1,0 +1,15 @@
+{
+    "task": [
+        {
+            "title": "Создатьмакетглавноестраницы",
+            "Tags ": "css,            блочнаяверстка,        chromedevelopmenttoolsTech: div,  float,  width,  padding",
+            "Tech": {
+                "parametr1": "div",
+                "parametr2": "float",
+                "parametr3": "width"
+            },
+			"Description": "<author manager>Клиент одобрил вот такой макет главной страницы.</author>",
+			"Tutorial" : "Div - кирпичик верстки"
+		}
+    ]
+}
