@@ -15,8 +15,7 @@ if (isset($_GET['request'])) //change it if POST - check button is clicked and r
 	{
 		while (!feof($fp))
 		{
-			$mytext = fgets($fp, 9999);
-			$full_json .= $mytext;
+			$full_json .= fgets($fp, 9999);
 		}
 	}
 	else
@@ -26,9 +25,13 @@ if (isset($_GET['request'])) //change it if POST - check button is clicked and r
 	
 	$decoded_data = json_decode($full_json, true);
 
-	$decoded_data['type'] = $data['type'];
-	$decoded_data['title'] = $data['title'];
-	$decoded_data['description'] = $data['description'];
+	foreach ($data as $key => $value)
+	{
+		if($key != '_' and $key != 'request')
+		{
+			$decoded_data[$key] = $value;
+		}
+	}
 
 	//print_r(urldecode($encoded_data));
 	$encoded_data = json_encode($decoded_data) or die("Encoding error \n");
