@@ -294,11 +294,10 @@
 
 .drop_down_list_wrapper{
 
-	width: 235px;
+	width: 405px;
 	padding: 10px 0;
 	
 	border: 1px solid #eee;
-	border-radius: 10px 10px 0 0;
 	
 	cursor: pointer;
 	background: #fff;
@@ -375,7 +374,6 @@
 .range{
 
 	-webkit-appearance: none;
-	margin: 10px 0 30px;
 	width: 100%;
 }
 
@@ -392,7 +390,7 @@
 	animate: 0.2s;
 	
 	box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-	background-color: #eee;
+	background-color: @color_theme;
 	border-radius: 25px;
 	border: 0px solid #000101;
 	
@@ -427,7 +425,7 @@
 	animate: 0.2s;
 	
 	box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-	background-color: #eee;
+	background-color: @color_theme;
 	border-radius: 25px;
 	border: 0px solid #000101;
 	
@@ -468,7 +466,7 @@
 
 .range::-ms-fill-lower {
 
-	background: #eee;
+	background: @color_theme;
 	border: 0px solid #000101;
 	border-radius: 50px;
 	box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
@@ -478,7 +476,7 @@
 
 .range::-ms-fill-upper {
 
-	background: #eee;
+	background: @color_theme;
 	border: 0px solid #000101;
 	border-radius: 50px;
 	box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
@@ -608,11 +606,20 @@
 	color: #f0d051;
 }
 
-/****************basic style form************/
+body{
+	color: #000;
+	font-family: arial;
+}
+
+.title{
+	font-family: verdana;
+	font-size: 20px;
+	color: #000;
+	margin-bottom: 15px;
+}
 
 .wrapper_form{
 	
-	color: #fff;
 	background-color: #eee;
 	min-width: 100%;
 	padding: 45px 0;
@@ -625,6 +632,38 @@
 	
 	.input_text{
 		display: block;
+		margin-bottom: 15px;
+	}
+	
+	.tags {
+		width: 405px;
+		margin-bottom: 15px;
+	}
+	
+	.tag {
+		padding: 2px 5px;
+		margin: 4px 10px;
+
+		background-color: #74d866;
+		border-radius: 5px;
+		color: #fff;
+	}
+	
+	.tag:first-child {
+		margin-left: 0;
+	}
+	
+	.range{
+		width: 200px;
+		display: inline-block;
+		vertical-align: top;
+		margin-right: 5px;
+	}
+	
+	.range_value{
+		display: inline-block;
+		vertical-align: top;
+		margin-left: 5px;
 	}
 	
 	.button{
@@ -632,6 +671,121 @@
 		width: 245px;
 		padding: 15px 65px;
 	}
+}
+
+.alert{
+
+	position: fixed;
+	top: 0;
+	left: 50%;
+	margin-left: -197px;
+	
+	border: 1px solid #eee;
+	background-color: #fff;
+	
+	font-style: italic;
+	font-size: 13px;
+	
+	padding: 20px 45px;
+	text-align: center;
+	
+	width: 300px;
+	display: none;
+}
+
+@-webkit-keyframes elastic {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    -webkit-transform: scale3d(.95, 1.05, 1);
+    transform: scale3d(.95, 1.05, 1);
+  }
+
+  75% {
+    -webkit-transform: scale3d(1.05, .95, 1);
+    transform: scale3d(1.05, .95, 1);
+  }
+
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes elastic {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    -ms-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    -ms-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    -ms-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    -ms-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    -webkit-transform: scale3d(.95, 1.05, 1);
+    -ms-transform: scale3d(.95, 1.05, 1);
+    transform: scale3d(.95, 1.05, 1);
+  }
+
+  75% {
+    -webkit-transform: scale3d(1.05, .95, 1);
+    -ms-transform: scale3d(1.05, .95, 1);
+    transform: scale3d(1.05, .95, 1);
+  }
+
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    -ms-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+
+.elastic {
+  -webkit-animation-name: elastic;
+  animation-name: elastic;
+  display: block;
 }
 
 @media screen and (max-width: 979px){ 
