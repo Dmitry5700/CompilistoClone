@@ -1,0 +1,264 @@
+﻿
+@{
+    ViewBag.Title = "EditLesson";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+<!DOCTYPE html>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/admin.js"></script>
+
+
+
+<script>
+
+    var globData;
+
+    function loadDesc()
+    {
+ 
+
+    }
+
+    function LoadLessonPart(partNumber)
+    {
+        if (globData != null)
+        {
+            var parts = eval(globData.LessonPart);
+
+            for (var i = 0; i < parts.length; i++)
+            {
+         
+                if (parts[i].LessonNumber == partNumber)
+                { 
+                    var type = parts[i].Type;
+                    var tags = parts[i].Tags;
+                    var tech = parts[i].Tech;
+                    var hint = parts[i].Hint;
+                    var comm = parts[i].Comment;
+
+                    var desc = eval(parts[i].Description);
+                    var tut = eval(parts[i].Tutorial);
+                    var job = eval(parts[i].Job);
+
+
+                    $('#inpType').val(type);
+                    $('#inpTags').val(tags);
+                    $('#inpTech').val(tech);
+                    $('#divServiceTags textarea').val(comm);
+                    $('#inpExpirience').val(hint);
+                   
+
+                    $('#divContentText textarea').val(desc[0].Content);
+                  
+                }
+            }
+        }
+    }
+
+
+
+    $(document).ready(function () {
+
+         ClearValues();
+
+    });
+
+
+    function loadLesson() {
+
+        ClearValues();
+
+        $.ajax({
+            url: 'http://' + location.host + '/handlers/readjson.ashx',
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+
+         
+                globData = data;
+
+                var title = data.Title;
+                var parts = eval(data.LessonPart);
+
+        
+                for (var i = 0; i < parts.length; i++)
+                {                    
+                    if (i == 0)
+                    {
+                        $('#divContentLesson').append('<input type=\"text\" class=\"inp-lesson-number\" value=' + parts[i].LessonNumber + ' /><div class=\"div-title-lesson div-title-lesson-active\" onclick=\"SetActiveLessonPart(this)\">' + parts[i].Title + '</div>');
+                    }
+                    else
+                    {
+                        $('#divContentLesson').append('<input type=\"text\" class=\"inp-lesson-number\" value=' + parts[i].LessonNumber + ' /><div class=\"div-title-lesson\" onclick=\"SetActiveLessonPart(this)\">' + parts[i].Title + '</div>');
+                    }
+                }
+
+                $('.inp-lesson-title').val(title);
+
+                if (parts.length > 0){
+                    LoadLessonPart(1);
+                }
+
+            },
+            error: function (data) {
+                alert('File not found..  May be, later...');
+            },
+        });
+    }
+
+    function saveLesson() {
+
+
+     
+
+        /*var title = $('.inp-lesson-title').val();
+        var thems = "";
+        var tags = "";
+        var ball = $('#inpExpirience').val();
+        var comment = $('#divServiceTags textarea').val().trim();
+        var content = $('#divContentText textarea').val().trim();
+
+        
+
+        $('#divContentLesson .div-title-lesson').each(function () {
+            thems += $(this).text().trim() + ",";
+        });
+
+        $('#divServiceTags .inp-tag').each(function () {
+            if ($(this).val().trim() != '') {
+                tags += $(this).val().trim() + ",";
+            }
+        });
+
+        if (thems != '') { thems = thems.substring(0, thems.length - 1); }
+        if (tags != '') { tags = tags.substring(0, tags.length - 1); }
+
+ 
+
+        $.ajax({
+            url: 'http://localhost:54635/handlers/writejson.ashx',
+            type: 'POST',
+            dataType: 'json',
+            //contentType: 'application/json; charset=utf-8',
+            data: { "jtitle": title, "jthems": thems, "jtags": tags, "jcontent": content },
+            success: function (data) {
+                alert(data);
+            }
+
+        });*/
+
+    }
+
+
+</script>
+
+
+<html>
+
+
+    <head>
+        <title>Уроки-online | Редактирование</title>
+    </head>
+
+    <body>
+
+        <div class="div-panel-service">
+            Заголовок урока:    <input type="text" class="inp-lesson-title" />
+
+        </div>
+
+        <table class="table-admin-content">
+
+            <tr>
+                <td width="210">
+                    <label>Главы урока</label>
+                    <br />
+                    <br />
+
+                    <div id="divContentLesson">
+
+                    </div>
+                    <br />
+                    <br />
+                    <input type="text" class="inp-add-lesson" />
+                    <br />
+
+                    <div class="div-button-add" title="Добавить главу" onclick="btnAddClick()">
+                        <div class="lbl-icon">+</div>
+                    </div>
+
+
+                </td>
+
+                <td width="500">
+
+                    <label>Администрирование</label>
+                    <br />
+                    <br />
+                    <div class="div-content-part">
+                        <nav><div title="description" onclick="loadDesc()">описание</div><div title="tutorial">руководство</div><div>задачи</div></nav>
+                    </div>
+
+                    <div id="divContentText">
+                        <textarea></textarea>
+                    </div>
+
+
+                    <div class="div-panel-page">
+                        <div class="div-panel-page-item">1</div>
+                    </div>
+                    
+
+                    <br />
+                    <input type="button" value="Загрузить урок" class="inp-btn-panel" onclick="loadLesson()" />
+                    <input type="button" value="Записать урок" class="inp-btn-panel" onclick="saveLesson()" />
+                    <input type="button" value="Preview" class="inp-btn-panel" style="float:right;" />
+
+                </td>
+                <td>
+
+                    <label>Служебные метки</label>
+
+                    <div id="divServiceTags">
+
+                        <div class="div-title-lesson" style="margin-left:15px;">Тэги</div>
+                        
+                        <div class="div-text-small" style="margin-left:15px;">тип</div>
+                        <input id="inpType" class="inp-tag" type="text" /><br />
+
+                        <div class="div-text-small" style="margin-left:15px;">урок</div>
+                        <input id="inpTags" class="inp-tag" type="text" /><br />
+
+                        <div class="div-text-small" style="margin-left:15px;">технические</div>
+                        <input id="inpTech" class="inp-tag" type="text" /><br />
+                        
+                        
+                        <input class="inp-tag" type="text" style="display:none;" /><br />
+                        <input class="inp-tag" type="text" style="display:none;" /><br />
+                       
+                        <div class="div-title-lesson" style="margin-left:15px;">Балл за выполнение</div>
+
+                        <input id="inpExpirience" type="text" class="inp-tag" style="width:75px;" />
+                        <br />
+                        <br />
+                        <div class="div-title-lesson" style="margin-left:15px;">Комментарий</div>
+                        <textarea></textarea>
+
+
+
+                    </div>
+                </td>
+
+            </tr>
+
+
+        </table>
+
+    </body>
+</html> 
